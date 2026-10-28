@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Nunito', 'Quicksand', sans-serif;
+    background-color: #fff0f3;
+    color: #5a3040;
+    overflow-x: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid #ff91aa;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-sm border border-white/80 shadow-lg shadow-pink-100/50;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-petal-400 to-blush-400 text-white font-semibold py-3 px-7 rounded-full
+           shadow-md shadow-pink-200/60 hover:shadow-lg hover:shadow-pink-300/60
+           hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply bg-white/80 text-petal-500 border border-petal-200 font-semibold py-2 px-5 rounded-full
+           hover:bg-petal-50 hover:border-petal-300 hover:scale-105 active:scale-95
+           transition-all duration-200 cursor-pointer;
+  }
+
+  .cute-card {
+    @apply bg-white/70 backdrop-blur-sm rounded-4xl border border-pink-100/80
+           shadow-xl shadow-pink-100/40 transition-all duration-300;
+  }
+
+  .section-title {
+    @apply font-display text-3xl md:text-4xl text-petal-600 text-center mb-2;
+  }
+
+  .section-subtitle {
+    @apply font-body text-petal-400 text-center text-sm mb-10 italic;
+  }
+
+  .floating-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    animation: floatUp 3s ease-out forwards;
+  }
+
+  .sparkle-dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkleOut 1s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .font-dancing {
+    font-family: 'Dancing Script', cursive;
+  }
+
+  .text-shadow-soft {
+    text-shadow: 0 2px 8px rgba(255, 145, 170, 0.3);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom keyframes not in Tailwind config */
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(1.4) rotate(20deg);
+  }
+}
+
+@keyframes sparkleOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2) translate(var(--tx), var(--ty));
+  }
+}
+
+@keyframes bgDrift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animated-bg {
+  background-size: 200% 200%;
+  animation: bgDrift 12s ease infinite;
+}
+
+/* Envelope animation */
+.envelope-flap {
+  transform-origin: top center;
+  transition: transform 0.6s ease;
+}
+
+.envelope-open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+/* Polaroid tilt alternation */
+.polaroid:nth-child(odd) { transform: rotate(-2deg); }
+.polaroid:nth-child(even) { transform: rotate(2deg); }
+.polaroid:hover { transform: rotate(0deg) scale(1.04) !important; z-index: 10; }
+
+/* Timeline connector */
+.timeline-line::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #ffc0d0, #f7aece, #ffc0d0);
+  transform: translateX(-50%);
+}
+
+/* Notification toast */
+.toast-enter {
+  animation: toastIn 0.4s ease-out forwards;
+}
+
+.toast-leave {
+  animation: toastOut 0.4s ease-in forwards;
+}
+
+@keyframes toastIn {
+  0% { opacity: 0; transform: translateX(100%); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+
+/* Garden elements */
+.garden-flower {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.garden-flower:hover {
+  transform: scale(1.2);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff0f3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffc0d0;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff91aa;
+}
+
+/* Selection color */
+::selection {
+  background: #ffc0d0;
+  color: #5a3040;
+}
+
+/* Input field utility */
+.input-field {
+  @apply w-full px-4 py-2.5 rounded-2xl border border-pink-200 bg-white/70
+         text-petal-600 font-body text-sm focus:outline-none focus:border-petal-300
+         placeholder:text-petal-200 transition-colors;
+}
+
+/* Lavender theme overrides */
+[data-theme="lavender"] .btn-primary {
+  @apply from-lavender-400 to-violet-400;
+}
+
+[data-theme="lavender"] body {
+  background-color: #f5f3ff;
+}
